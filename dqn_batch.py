@@ -5,7 +5,7 @@ import numpy as np
 from collections import deque
 from keras.models import Sequential
 from keras.layers import Dense
-from keras.optimizers import Adam
+from keras.optimizers import adam_v2
 
 EPISODES = 1000
 
@@ -28,7 +28,7 @@ class DQNAgent:
         model.add(Dense(24, activation='relu'))
         model.add(Dense(self.action_size, activation='linear'))
         model.compile(loss='mse',
-                      optimizer=Adam(lr=self.learning_rate))
+                      optimizer=adam_v2.Adam(lr=self.learning_rate))
         return model
 
     def memorize(self, state, action, reward, next_state, done):
@@ -94,8 +94,8 @@ if __name__ == "__main__":
             if len(agent.memory) > batch_size:
                 loss = agent.replay(batch_size)
                 # Logging training loss every 10 timesteps
-                if time % 10 == 0:
-                    print("episode: {}/{}, time: {}, loss: {:.4f}"
-                        .format(e, EPISODES, time, loss))  
-        # if e % 10 == 0:
-        #     agent.save("./save/cartpole-dqn.h5")
+                # if time % 10 == 0:
+                #     print("episode: {}/{}, time: {}, loss: {:.4f}"
+                #         .format(e, EPISODES, time, loss))  
+        if e % 10 == 0:
+            agent.save("./save/cartpole-dqn_batch.h5")
