@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import random
 import gym
 import numpy as np
 from collections import deque
@@ -59,6 +58,6 @@ if __name__ == "__main__":
             next_state = np.reshape(next_state, [1, state_size])
             state = next_state
             if done:
-                print("episode: {}/{}, score: {}, e: {:.2}"
-                      .format(e, EPISODES, time, agent.epsilon))
+                print("episode: {}/{}, score: {}"
+                      .format(e, EPISODES, time))
                 break
